@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -18,17 +19,16 @@ public class MenuState extends State {
     private Texture playStork;
     private Texture playBtn;
     private BitmapFont font;
-    private OrthographicCamera cam;
-    private Viewport viewport;
 
-    public MenuState(GameStateManager gsm) {
-        super(gsm);
 
-        float aspectRatio = (float)Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
-        cam = new OrthographicCamera();
-        viewport = new StretchViewport(100 * aspectRatio,100,cam);
-        viewport.apply();
-        cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
+    public MenuState(GameStateManager gsm, OrthographicCamera cam, Viewport viewport, Stage stage) {
+        super(gsm,cam, viewport, stage);
+
+//        float aspectRatio = (float)Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
+//        cam = new OrthographicCamera();
+//        viewport = new StretchViewport(100 * aspectRatio,100,cam);
+//        viewport.apply();
+//        cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
 
 
         font = new BitmapFont(Gdx.files.internal("fonts/abel.fnt"),Gdx.files.internal("fonts/abel.png"),false);
@@ -60,7 +60,7 @@ public class MenuState extends State {
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched() ) {
-            gsm.set(new PlayState(gsm));
+            gsm.set(new PlayState(gsm,cam,viewport,stage));
             dispose();
         }
     }
@@ -75,13 +75,13 @@ public class MenuState extends State {
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
-        sb.draw(background,0,0, Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+        sb.draw(background,0,0, cam.viewportWidth/2,cam.viewportHeight/2);
 
-        sb.draw(playStork,(Gdx.graphics.getWidth()/2) - (playStork.getWidth()/2),(Gdx.graphics.getHeight()/2) - (playStork.getHeight()/2) + 120);
-        sb.draw(playBtn,(Gdx.graphics.getWidth()/2) - (playBtn.getWidth()/2),(Gdx.graphics.getHeight()/2) - (playBtn.getHeight()/2) - 150);
+        sb.draw(playStork,(cam.viewportWidth/2) - (playStork.getWidth()/2),(cam.viewportHeight/2) - (playStork.getHeight()/2) + 120);
+        sb.draw(playBtn,(cam.viewportWidth/2) - (playBtn.getWidth()/2),(cam.viewportHeight/2) - (playBtn.getHeight()/2) - 150);
         sb.end();
         sb.begin();
-        font.draw(sb, "StorkLight", Gdx.graphics.getWidth()/2 - 200, Gdx.graphics.getHeight()/10);
+        font.draw(sb, "StorkLight", cam.viewportWidth/2 - 200, cam.viewportHeight/10);
         sb.end();
     }
 }

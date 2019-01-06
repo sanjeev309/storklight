@@ -1,6 +1,9 @@
 package com.studio.sanjeev.storklight.states;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.studio.sanjeev.storklight.states.GameStateManager;
 
 /**
@@ -9,8 +12,8 @@ import com.studio.sanjeev.storklight.states.GameStateManager;
 
 public class LevelState extends State {
 
-    public LevelState(GameStateManager gsm){
-        super(gsm);
+    public LevelState(GameStateManager gsm, OrthographicCamera cam, Viewport viewport, Stage stage){
+        super(gsm, cam, viewport,stage);
 
     }
     @Override
@@ -31,11 +34,5 @@ public class LevelState extends State {
     @Override
     public void dispose() {
 
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        cam.position.set(width,height,0);
-        cam.update();
     }
 }

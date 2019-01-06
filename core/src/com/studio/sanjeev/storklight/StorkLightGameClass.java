@@ -4,7 +4,11 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.studio.sanjeev.storklight.states.GameStateManager;
 import com.studio.sanjeev.storklight.states.MenuState;
 import com.studio.sanjeev.storklight.states.PlayState;
@@ -17,16 +21,31 @@ public class StorkLightGameClass extends ApplicationAdapter {
 	public static final String TITLE="Stork Light";
 	private GameStateManager gsm;
 	private SpriteBatch batch;
+	OrthographicCamera cam;
+	Viewport viewport;
+	Stage stage;
 
 	@Override
 	public void create () {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		batch = new SpriteBatch();
+		stage = new Stage();
+
+		float aspectRatio = (float)Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
+
+		cam = new OrthographicCamera();
+		viewport = new StretchViewport(100 * aspectRatio,100,cam);
+		viewport.apply();
+		cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
+
 		gsm = new GameStateManager();
-		gsm.push(new MenuState(gsm));
-		gsm.push(new PlayState(gsm));
+
+		gsm.push(new MenuState(gsm,cam, viewport,stage));
+//		gsm.push(new PlayState(gsm,cam, viewport, stage));
 //        Gdx.gl.glClearColor(1, 1, 1, 1);
+
 	}
+
 
 	@Override
 	public void render () {
@@ -45,7 +64,14 @@ public class StorkLightGameClass extends ApplicationAdapter {
 
 	@Override
 	public void resize(int width, int height){
+		Gdx.app.debug("GameClass", "resize called " + width + ":" + height);
+		viewport.update(width,height);
+		cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
+		stage.getViewport().update(width, height);
+		stage.getCamera().viewportWidth = WIDTH;
+		stage.getCamera().viewportHeight = HEIGHT * height / width;
+//		stage.getCamera().position.set(stage.getCamera().viewportWidth, stage.getCamera().viewportHeight, 0);
+		stage.getCamera().update();
 
 	}
-
 }

@@ -49,8 +49,8 @@ public class Stork {
             position.y = 0;
         }
 
-        if(position.y > Gdx.graphics.getHeight() - storkAnimation.getTextureRegion().getRegionHeight()/2){
-            position.y = Gdx.graphics.getHeight() - storkAnimation.getTextureRegion().getRegionHeight()/2;
+        if(position.y > 100 - storkAnimation.getTextureRegion().getRegionHeight()/2){
+            position.y = 100 - storkAnimation.getTextureRegion().getRegionHeight()/2;
             velocity.y = 0;
         }
 
