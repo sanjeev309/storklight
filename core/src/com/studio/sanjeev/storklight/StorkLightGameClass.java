@@ -6,10 +6,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.studio.sanjeev.storklight.states.GameStateManager;
+import com.studio.sanjeev.storklight.states.MenuState;
+import com.studio.sanjeev.storklight.states.PlayState;
 
 public class StorkLightGameClass extends ApplicationAdapter {
-	public static final int WIDTH = 1920;
-	public static final int HEIGHT= 1080;
+	public static final int HEIGHT = 100;
+	public static final int WIDTH = 100;
 	public static final float SPEED = 0.1f;
 
 	public static final String TITLE="Stork Light";
@@ -21,8 +23,8 @@ public class StorkLightGameClass extends ApplicationAdapter {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
-		gsm.push(new com.studio.sanjeev.storklight.states.MenuState(gsm));
-//		gsm.push(new PlayState(gsm));
+		gsm.push(new MenuState(gsm));
+		gsm.push(new PlayState(gsm));
 //        Gdx.gl.glClearColor(1, 1, 1, 1);
 	}
 
@@ -40,4 +42,10 @@ public class StorkLightGameClass extends ApplicationAdapter {
 	public void dispose () {
 		batch.dispose();
 	}
+
+	@Override
+	public void resize(int width, int height){
+
+	}
+
 }

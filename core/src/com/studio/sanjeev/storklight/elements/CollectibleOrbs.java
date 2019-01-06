@@ -19,7 +19,7 @@ import java.util.Random;
 public class CollectibleOrbs {
     private static final int ORB_COUNT = 10;
     private static final int DARK_COUNT = 15;
-    private static final int ORB_RADIUS = 32;
+    private static final int ORB_RADIUS = 22;
     private Array<Orb> orbs;
     private Array<Dark> darks;
     private Orb orb;
@@ -35,8 +35,6 @@ public class CollectibleOrbs {
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
         int step = Gdx.graphics.getHeight()/NumSteps;
-        Gdx.app.debug("Height",Gdx.graphics.getHeight()+"");
-        Gdx.app.debug("NumSteps",NumSteps + "  Step" + step);
 
         for(int i = step; i< (step*NumSteps) ; i = i + step){
             column.add(i);
@@ -63,18 +61,18 @@ public class CollectibleOrbs {
     }
 
     public void render(SpriteBatch sb){
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.RED);
+//        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+//        shapeRenderer.setColor(Color.RED);
 
         for(Orb orb:orbs){
             sb.draw(orb.getOrbTexture(),orb.position.x,orb.position.y);
-            shapeRenderer.circle(orb.position.x,orb.position.y,5);
+//            shapeRenderer.circle(orb.position.x,orb.position.y,5);
         }
         for(Dark dark : darks){
             sb.draw(dark.getDarkTexture(),dark.position.x,dark.position.y);
-            shapeRenderer.circle(dark.position.x,dark.position.y,5);
+//            shapeRenderer.circle(dark.position.x,dark.position.y,5);
         }
-        shapeRenderer.end();
+//        shapeRenderer.end();
     }
     public void dispose(){
         orb.dispose();

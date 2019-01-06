@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
+import com.studio.sanjeev.storklight.StorkLightGameClass;
 
 /**
  * Created by sanjeev309 on 3/20/18.
@@ -33,7 +34,7 @@ public class ParallaxBackground extends Actor {
         speed = 0;
 
         x = y = originX = originY = rotation = srcY = 0;
-        width =  Gdx.graphics.getWidth();
+        width = Gdx.graphics.getWidth();
         heigth = Gdx.graphics.getHeight();
         scaleX = scaleY = 1;
         flipX = flipY = false;

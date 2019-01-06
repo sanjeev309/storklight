@@ -32,4 +32,10 @@ public class LevelState extends State {
     public void dispose() {
 
     }
+
+    @Override
+    public void resize(int width, int height) {
+        cam.position.set(width,height,0);
+        cam.update();
+    }
 }
