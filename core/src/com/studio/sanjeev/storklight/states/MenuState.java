@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.studio.sanjeev.storklight.StorkLightGameClass;
 
 
 /**
@@ -24,20 +25,15 @@ public class MenuState extends State {
     public MenuState(GameStateManager gsm, OrthographicCamera cam, Viewport viewport, Stage stage) {
         super(gsm,cam, viewport, stage);
 
-//        float aspectRatio = (float)Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
-//        cam = new OrthographicCamera();
-//        viewport = new StretchViewport(100 * aspectRatio,100,cam);
-//        viewport.apply();
-//        cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
-
-
         font = new BitmapFont(Gdx.files.internal("fonts/abel.fnt"),Gdx.files.internal("fonts/abel.png"),false);
+        font.getData().setScale(0.2f);
+
         background = new Texture("n0.png");
 
         playStork = new Texture("storkmenu.png");
         playBtn = new Texture("play.png");
 
-        font.getData().setScale(3);
+        font.getData().setScale(0.3f);
         font.setColor(0,0,1,0);
 
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -51,11 +47,6 @@ public class MenuState extends State {
         font.dispose();
     }
 
-    @Override
-    public void resize(int width, int height) {
-        cam.position.set(width,height,0);
-        cam.update();
-    }
 
     @Override
     public void handleInput() {
@@ -75,13 +66,12 @@ public class MenuState extends State {
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
-        sb.draw(background,0,0, cam.viewportWidth/2,cam.viewportHeight/2);
+        sb.draw(background,0,0, StorkLightGameClass.WIDTH,StorkLightGameClass.HEIGHT);
 
-        sb.draw(playStork,(cam.viewportWidth/2) - (playStork.getWidth()/2),(cam.viewportHeight/2) - (playStork.getHeight()/2) + 120);
+        sb.draw(playStork,10,10,80,80);
         sb.draw(playBtn,(cam.viewportWidth/2) - (playBtn.getWidth()/2),(cam.viewportHeight/2) - (playBtn.getHeight()/2) - 150);
-        sb.end();
-        sb.begin();
-        font.draw(sb, "StorkLight", cam.viewportWidth/2 - 200, cam.viewportHeight/10);
+
+//        font.draw(sb, "Stork Light", 50, 50);
         sb.end();
     }
 }

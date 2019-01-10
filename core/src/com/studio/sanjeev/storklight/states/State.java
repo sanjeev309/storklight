@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * Created by sanjeev309 on 3/18/18.
  */
 
-public abstract class State extends ApplicationAdapter {
+public abstract class State{
     protected GameStateManager gsm;
 
     protected OrthographicCamera cam;

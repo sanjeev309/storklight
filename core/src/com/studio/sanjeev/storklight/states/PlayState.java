@@ -5,10 +5,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.studio.sanjeev.storklight.elements.CollectibleOrbs;
 import com.studio.sanjeev.storklight.sprites.Stork;
@@ -21,7 +19,6 @@ public class PlayState extends State {
     private Stork stork;
     private CollectibleOrbs orbs;
     Array<Texture> textures = new Array<Texture>();
-    private ShapeRenderer shapeRenderer;
     private BitmapFont font;
     private Texture lifeTex;
     private int score = 0;
@@ -30,23 +27,11 @@ public class PlayState extends State {
     public PlayState(GameStateManager gsm, OrthographicCamera cam, Viewport viewport,Stage  stage) {
         super(gsm,cam,viewport,stage);
 
-//        float aspectRatio = (float)Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
-//        cam = new OrthographicCamera();
-//        viewport = new StretchViewport(100 * aspectRatio,100,cam);
-//        viewport.apply();
-//        cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
-
-        Gdx.app.debug("Display",Gdx.graphics.getWidth() + " : " + Gdx.graphics.getHeight());
-        Gdx.app.debug("CamViewport",cam.viewportWidth + " : " + cam.viewportHeight);
-
         stork = new Stork(0, 50);
-
-//        stage = new Stage();
-        shapeRenderer = new ShapeRenderer();
-        shapeRenderer.setProjectionMatrix(cam.combined);
         lifeTex = new Texture(Gdx.files.internal("lifes.png"));
         orbs = new CollectibleOrbs(cam);
         font = new BitmapFont(Gdx.files.internal("fonts/abel.fnt"),Gdx.files.internal("fonts/abel.png"),false);
+        font.getData().setScale(0.15f);
         textures.add(new Texture("n0.png"));
         textures.get(textures.size - 1).setWrap(Texture.TextureWrap.ClampToEdge, Texture.TextureWrap.ClampToEdge);
 
@@ -55,7 +40,7 @@ public class PlayState extends State {
             textures.get(textures.size - 1).setWrap(Texture.TextureWrap.MirroredRepeat, Texture.TextureWrap.MirroredRepeat);
         }
 
-        ParallaxBackground parallaxBackground = new ParallaxBackground(textures);
+        ParallaxBackground parallaxBackground = new ParallaxBackground(textures,cam);
         parallaxBackground.setSize(cam.viewportWidth,cam.viewportHeight);
         parallaxBackground.setSpeed(1);
         stage.addActor(parallaxBackground);
@@ -79,23 +64,25 @@ public class PlayState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
-        stage.getViewport().apply();
-        stage.draw();
         sb.setProjectionMatrix(cam.combined);
+
+        stage.draw();
+
         sb.begin();
-        sb.draw(stork.getTextureRegion(),stork.getPosition().x,stork.getPosition().y);
+        sb.draw(stork.getTextureRegion(),stork.getPosition().x,stork.getPosition().y,10,10);
         orbs.render(sb);
         sb.end();
+
         sb.begin();
-        font.draw(sb,"Score : "+ getScore(), 100 - 100/6 , 100 - 100/10);
+        font.draw(sb," S c o r e : "+ getScore(), 55 , 95);
         sb.end();
+
         sb.begin();
         for(int i =1; i <= lives; i++){
-            sb.draw(lifeTex, lifeTex.getWidth()*i - lifeTex.getWidth() + 20 , 100 - lifeTex.getHeight() - Gdx.graphics.getHeight()/10,lifeTex.getWidth(),lifeTex.getHeight());
+            sb.draw(lifeTex, 4*i - 4 + 2 , 100 - 10,4,6);
 
         }
         sb.end();
-
         }
 
     @Override
@@ -105,11 +92,10 @@ public class PlayState extends State {
         font.dispose();
     }
 
-
-
     public void CollisionCheckMain(){
         int temp;
         temp = orbs.checkCollision(stork.getBoundingRectangle());
+//        Gdx.app.debug("collision",temp + ":" + stork.getBoundingRectangle());
         if(temp==1){
             score +=temp;
             if (score%20==0){
