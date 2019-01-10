@@ -31,18 +31,14 @@ public class StorkLightGameClass extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		stage = new Stage();
 
-		float aspectRatio = (float)Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
-
 		cam = new OrthographicCamera();
-		viewport = new StretchViewport(100 * aspectRatio,100,cam);
+		viewport = new StretchViewport(100 ,100,cam);
 		viewport.apply();
 		cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
 
-		gsm = new GameStateManager();
 
+		gsm = new GameStateManager();
 		gsm.push(new MenuState(gsm,cam, viewport,stage));
-//		gsm.push(new PlayState(gsm,cam, viewport, stage));
-//        Gdx.gl.glClearColor(1, 1, 1, 1);
 
 	}
 
@@ -51,10 +47,8 @@ public class StorkLightGameClass extends ApplicationAdapter {
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		gsm.update(Gdx.graphics.getDeltaTime());
+		batch.setProjectionMatrix(cam.projection);
 		gsm.render(batch);
-		/*batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();*/
 	}
 	
 	@Override
@@ -64,14 +58,12 @@ public class StorkLightGameClass extends ApplicationAdapter {
 
 	@Override
 	public void resize(int width, int height){
-		Gdx.app.debug("GameClass", "resize called " + width + ":" + height);
 		viewport.update(width,height);
+
 		cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
-		stage.getViewport().update(width, height);
-		stage.getCamera().viewportWidth = WIDTH;
-		stage.getCamera().viewportHeight = HEIGHT * height / width;
-//		stage.getCamera().position.set(stage.getCamera().viewportWidth, stage.getCamera().viewportHeight, 0);
-		stage.getCamera().update();
+
+		batch.getProjectionMatrix().setToOrtho2D(0, 0, width, height);
+		stage.setViewport(viewport);
 
 	}
 }

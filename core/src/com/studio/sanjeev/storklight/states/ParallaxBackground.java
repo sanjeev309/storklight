@@ -24,7 +24,7 @@ public class ParallaxBackground extends Actor {
 
     private int speed;
 
-    public ParallaxBackground(Array<Texture> textures){
+    public ParallaxBackground(Array<Texture> textures,OrthographicCamera cam){
         layers = textures;
         layers.get(0).setWrap(Texture.TextureWrap.MirroredRepeat, Texture.TextureWrap.MirroredRepeat);
         for(int i = 1; i <textures.size;i++){
@@ -34,8 +34,8 @@ public class ParallaxBackground extends Actor {
         speed = 0;
 
         x = y = originX = originY = rotation = srcY = 0;
-        width = Gdx.graphics.getWidth();
-        heigth = Gdx.graphics.getHeight();
+        width = StorkLightGameClass.WIDTH;
+        heigth = StorkLightGameClass.HEIGHT;
         scaleX = scaleY = 1;
         flipX = flipY = false;
 
