@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.studio.sanjeev.storklight.StorkLightGameClass;
+
 import java.util.Random;
 
 /**
@@ -18,8 +20,9 @@ import java.util.Random;
 
 public class CollectibleOrbs {
     private static final int ORB_COUNT = 10;
-    private static final int DARK_COUNT = 15;
-    private static final int ORB_RADIUS = 22;
+    private static final int DARK_COUNT = 10;
+    private static final int ORB_RADIUS = 1;
+    private static final int ORB_SPEED = 14;
     private Array<Orb> orbs;
     private Array<Dark> darks;
     private Orb orb;
@@ -34,7 +37,7 @@ public class CollectibleOrbs {
         column = new Array<Integer>();
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
-        int step = Gdx.graphics.getHeight()/NumSteps;
+        int step = 100/NumSteps;
 
         for(int i = step; i< (step*NumSteps) ; i = i + step){
             column.add(i);
@@ -65,11 +68,11 @@ public class CollectibleOrbs {
 //        shapeRenderer.setColor(Color.RED);
 
         for(Orb orb:orbs){
-            sb.draw(orb.getOrbTexture(),orb.position.x,orb.position.y);
+            sb.draw(orb.getOrbTexture(),orb.position.x,orb.position.y,4,4);
 //            shapeRenderer.circle(orb.position.x,orb.position.y,5);
         }
         for(Dark dark : darks){
-            sb.draw(dark.getDarkTexture(),dark.position.x,dark.position.y);
+            sb.draw(dark.getDarkTexture(),dark.position.x,dark.position.y,4,4);
 //            shapeRenderer.circle(dark.position.x,dark.position.y,5);
         }
 //        shapeRenderer.end();
@@ -83,7 +86,7 @@ public class CollectibleOrbs {
         int ret=0;
         for(Orb orb: orbs){
             if(stork.contains(orb.getOrbCircle())){
-                orb.reposition();
+                 orb.reposition();
                 ret= 1;
             }
         }
@@ -107,7 +110,7 @@ public class CollectibleOrbs {
 
         public Orb(){
             rand = new Random();
-            position = new Vector2(rand.nextInt(Gdx.graphics.getWidth()) +Gdx.graphics.getWidth(),rand.nextInt(Gdx.graphics.getHeight()));
+            position = new Vector2(rand.nextInt(StorkLightGameClass.WIDTH) + StorkLightGameClass.WIDTH,rand.nextInt(StorkLightGameClass.HEIGHT));
             orbCircle = new Circle(position.x,position.y,ORB_RADIUS);
             orbCircle.setPosition(position);
             texture = new Texture(Gdx.files.internal("particle/orbSprite.png"));
@@ -120,12 +123,12 @@ public class CollectibleOrbs {
 
         public void update(float dt){
             if(position.x< -32){
-                position.x = rand.nextInt(Gdx.graphics.getWidth()) + Gdx.graphics.getWidth();
+                position.x = rand.nextInt(StorkLightGameClass.WIDTH) + StorkLightGameClass.WIDTH;
                 position.y = column.get(rand.nextInt(NumSteps - 1));
             }
             else
             {
-                position.x-= 150*dt;
+                position.x-= ORB_SPEED*dt;
             }
             orbCircle.set(position.x,position.y,ORB_RADIUS);
         }
@@ -135,7 +138,7 @@ public class CollectibleOrbs {
         public Circle getOrbCircle(){return orbCircle;}
 
         public void reposition(){
-            position.x = rand.nextInt(Gdx.graphics.getWidth()) + Gdx.graphics.getWidth();
+            position.x = rand.nextInt(100) + 100;
             position.y = column.get(rand.nextInt(NumSteps - 1));
         }
     }
@@ -147,7 +150,7 @@ public class CollectibleOrbs {
         private Circle darkCircle;
         public Dark(){
             rand = new Random();
-            position = new Vector2(rand.nextInt(Gdx.graphics.getWidth()) + Gdx.graphics.getWidth(),rand.nextInt(Gdx.graphics.getHeight()));
+            position = new Vector2(rand.nextInt(StorkLightGameClass.WIDTH) + StorkLightGameClass.WIDTH,rand.nextInt(StorkLightGameClass.HEIGHT));
             darkCircle = new Circle(position.x,position.y,ORB_RADIUS);
             texture = new Texture(Gdx.files.internal("particle/darkSprite.png"));
         }
@@ -155,12 +158,12 @@ public class CollectibleOrbs {
 
         public void update(float dt){
             if(position.x< -32){
-                position.x = rand.nextInt(Gdx.graphics.getWidth()) + Gdx.graphics.getWidth();
+                position.x = rand.nextInt(StorkLightGameClass.WIDTH) + StorkLightGameClass.WIDTH;
                 position.y = column.get(rand.nextInt(NumSteps - 1));
             }
             else
             {
-                position.x-= 150*dt;
+                position.x-= ORB_SPEED*dt;
             }
             darkCircle.set(position.x,position.y,ORB_RADIUS);
         }
@@ -171,7 +174,7 @@ public class CollectibleOrbs {
         public Circle getDarkCircle(){return darkCircle;}
 
         public void reposition(){
-            position.x = rand.nextInt(Gdx.graphics.getWidth()) + Gdx.graphics.getWidth();
+            position.x = rand.nextInt(StorkLightGameClass.WIDTH) + 100;
             position.y = column.get(rand.nextInt(NumSteps - 1));
         }
     }

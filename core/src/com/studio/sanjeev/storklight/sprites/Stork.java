@@ -13,6 +13,10 @@ import com.studio.sanjeev.storklight.sprites.Animation;
 public class Stork {
     private static final int GRAVITY = -10;
     private static final int MOVEMENT = 0;
+    private static final int WIDTH = 10;
+    private static final int HEIGHT = 10;
+    private static final int STORK_SPEED = 18;
+
     private Vector3 position;
     private Vector3 velocity;
     private Animation storkAnimation;
@@ -30,9 +34,8 @@ public class Stork {
         position = new Vector3(x,y,0);
         velocity = new Vector3(0,0,0);
         Texture texture = new Texture("storkanim.png");
-        storkRectangle = new Rectangle(x,y,texture.getWidth(),texture.getHeight());
         storkAnimation = new Animation( texture, 6, 0.3f);
-        storkRectangle = new Rectangle(x,y,getTextureRegion().getRegionWidth(),getTextureRegion().getRegionHeight());
+        storkRectangle = new Rectangle(x,y,WIDTH,HEIGHT);
          }
     public void update(float dt){
 
@@ -49,15 +52,15 @@ public class Stork {
             position.y = 0;
         }
 
-        if(position.y > 100 - storkAnimation.getTextureRegion().getRegionHeight()/2){
-            position.y = 100 - storkAnimation.getTextureRegion().getRegionHeight()/2;
+        if(position.y > 95 ){
+            position.y = 95 ;
             velocity.y = 0;
         }
 
-        storkRectangle = new Rectangle(position.x ,position.y,storkAnimation.getTextureRegion().getRegionWidth(),storkAnimation.getTextureRegion().getRegionHeight());
+        storkRectangle = new Rectangle(position.x ,position.y,WIDTH,HEIGHT);
     }
     public void fly(){
-        velocity.y = velocity.y + 20;
+        velocity.y = velocity.y + STORK_SPEED;
     }
 
     public Rectangle getBoundingRectangle(){
