@@ -53,4 +53,4 @@ This project is licensed under the GPLv3 License - see the [LICENSE.md](LICENSE.
 
 * Hat tip to LibGDX for the great game engine
 * Reused code from [@sivvig](https://github.com/sivvig/ZombieBird)
-* Initial Artwork by [@shivani8396]()
+* Initial Artwork by [@shivani8396](https://github.com/shivani8396)
