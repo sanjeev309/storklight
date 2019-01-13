@@ -68,11 +68,11 @@ public class CollectibleOrbs {
 //        shapeRenderer.setColor(Color.RED);
 
         for(Orb orb:orbs){
-            sb.draw(orb.getOrbTexture(),orb.position.x,orb.position.y,4,4);
+            sb.draw(orb.getOrbTexture(),orb.position.x,orb.position.y,2,4);
 //            shapeRenderer.circle(orb.position.x,orb.position.y,5);
         }
         for(Dark dark : darks){
-            sb.draw(dark.getDarkTexture(),dark.position.x,dark.position.y,4,4);
+            sb.draw(dark.getDarkTexture(),dark.position.x,dark.position.y,2,4);
 //            shapeRenderer.circle(dark.position.x,dark.position.y,5);
         }
 //        shapeRenderer.end();
