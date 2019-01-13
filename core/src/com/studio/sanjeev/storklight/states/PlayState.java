@@ -25,25 +25,28 @@ public class PlayState extends State {
     private int lives = 5;
 
     public PlayState(GameStateManager gsm, OrthographicCamera cam, Viewport viewport,Stage  stage) {
-        super(gsm,cam,viewport,stage);
+        super(gsm, cam, viewport, stage);
 
         stork = new Stork(0, 50);
         lifeTex = new Texture(Gdx.files.internal("lifes.png"));
         orbs = new CollectibleOrbs(cam);
-        font = new BitmapFont(Gdx.files.internal("fonts/abel.fnt"),Gdx.files.internal("fonts/abel.png"),false);
+        font = new BitmapFont(Gdx.files.internal("fonts/abel.fnt"), Gdx.files.internal("fonts/abel.png"), false);
         font.getData().setScale(0.15f);
         textures.add(new Texture("n0.png"));
         textures.get(textures.size - 1).setWrap(Texture.TextureWrap.ClampToEdge, Texture.TextureWrap.ClampToEdge);
 
-        for(int i = 1; i <=4;i++) {
+        for (int i = 1; i <= 4; i++) {
             textures.add(new Texture(i + ".png"));
             textures.get(textures.size - 1).setWrap(Texture.TextureWrap.MirroredRepeat, Texture.TextureWrap.MirroredRepeat);
         }
+        Gdx.app.debug("Stage:", stage.getActors().size + "");
 
-        ParallaxBackground parallaxBackground = new ParallaxBackground(textures,cam);
-        parallaxBackground.setSize(cam.viewportWidth,cam.viewportHeight);
-        parallaxBackground.setSpeed(1);
-        stage.addActor(parallaxBackground);
+        if (stage.getActors().size == 0) {
+            ParallaxBackground parallaxBackground = new ParallaxBackground(textures, cam);
+            parallaxBackground.setSize(cam.viewportWidth, cam.viewportHeight);
+            parallaxBackground.setSpeed(1);
+            stage.addActor(parallaxBackground);
+        }
     }
 
     @Override
@@ -87,7 +90,6 @@ public class PlayState extends State {
 
     @Override
     public void dispose() {
-        stage.dispose();
         orbs.dispose();
         font.dispose();
     }
