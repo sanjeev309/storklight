@@ -19,6 +19,11 @@ StorkLight is a open-source android side scrolling game using LibGDX framework
 - Enable USB debugging
 - Install StorkLight using Android Studio
 
+  #### or
+
+- Download latest release apk from [here](https://github.com/sanjeev309/storklight/releases)
+- Install & Run
+
 ## Running the tests
 
 Tests will be added soon
@@ -33,7 +38,7 @@ For details of classes, directory structure and guidelines: [wiki](https://githu
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/sanjeev309/storklight/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
@@ -43,11 +48,11 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 * **Sanjeev Tripathi** - *Initial work*
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/sanjeev309/storklight/blob/master/contributors.md) who participated in this project.
 
 ## License
 
-This project is licensed under the GPLv3 License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the GPLv3 License - see the [LICENSE.md](https://github.com/sanjeev309/storklight/blob/master/LICENSE) file for details
 
 ## Acknowledgments
 
