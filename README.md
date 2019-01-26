@@ -25,7 +25,7 @@ StorkLight is a open-source android side scrolling game using LibGDX framework
 - Install & Run
 
   #### or
-  Download StorkLight on Google Playstore:
+- Download StorkLight on Google Playstore:
   
   [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" width="30%" height="30%" target="_blank">](https://play.google.com/store/apps/details?id=com.studio.sanjeev.storklight)
   
