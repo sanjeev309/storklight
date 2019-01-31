@@ -1,4 +1,4 @@
-# Project Title
+# StorkLight : Open-source Side Scroller for Android™
 
 StorkLight is a open-source android side scrolling game using LibGDX framework
 
