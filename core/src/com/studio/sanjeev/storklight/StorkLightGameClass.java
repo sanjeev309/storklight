@@ -60,9 +60,7 @@ public class StorkLightGameClass extends ApplicationAdapter {
 	@Override
 	public void resize(int width, int height){
 		viewport.update(width,height);
-
 		cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
-
 		batch.getProjectionMatrix().setToOrtho2D(0, 0, width, height);
 		stage.setViewport(viewport);
 

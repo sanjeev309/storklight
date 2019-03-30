@@ -11,11 +11,11 @@ import com.studio.sanjeev.storklight.sprites.Animation;
  */
 
 public class Stork {
-    private static final int GRAVITY = -10;
+    private static final int GRAVITY = -5;
     private static final int MOVEMENT = 0;
     private static final int WIDTH = 10;
     private static final int HEIGHT = 10;
-    private static final int STORK_SPEED = 18;
+    private static final int STORK_SPEED = 8;
 
     private Vector3 position;
     private Vector3 velocity;
@@ -44,7 +44,7 @@ public class Stork {
             velocity.add(0,GRAVITY,0);
 
         velocity.scl(dt);
-        position.add(MOVEMENT * dt,velocity.y,0);
+        position.add(MOVEMENT * dt, velocity.y,0);
         velocity.scl(1/dt);
 
         if(position.y < 0 ){
@@ -52,8 +52,8 @@ public class Stork {
             position.y = 0;
         }
 
-        if(position.y > 95 ){
-            position.y = 95 ;
+        if(position.y > 93 ){
+            position.y = 93 ;
             velocity.y = 0;
         }
 
