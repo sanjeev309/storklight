@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.studio.sanjeev.storklight.states.GameStateManager;
 import com.studio.sanjeev.storklight.states.MenuState;
 import com.studio.sanjeev.storklight.states.PlayState;
+import com.studio.sanjeev.storklight.utility.Prefs;
 
 public class StorkLightGameClass extends ApplicationAdapter {
 	public static final int HEIGHT = 100;
@@ -24,22 +25,22 @@ public class StorkLightGameClass extends ApplicationAdapter {
 	OrthographicCamera cam;
 	Viewport viewport;
 	Stage stage;
+	Prefs prefs;
 
 	@Override
 	public void create () {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		batch = new SpriteBatch();
 		stage = new Stage();
+		prefs = new Prefs();
 
 		cam = new OrthographicCamera();
 		viewport = new StretchViewport(100 ,100,cam);
 		viewport.apply();
 		cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
 
-
 		gsm = new GameStateManager();
-		gsm.push(new MenuState(gsm,cam, viewport,stage));
-
+		gsm.push(new MenuState(gsm, cam, viewport, stage));
 	}
 
 
@@ -63,6 +64,15 @@ public class StorkLightGameClass extends ApplicationAdapter {
 		cam.position.set(cam.viewportWidth/2,cam.viewportHeight/2,0);
 		batch.getProjectionMatrix().setToOrtho2D(0, 0, width, height);
 		stage.setViewport(viewport);
-
 	}
+
+	@Override
+	public void pause(){
+		gsm.pause();
+	}
+
+//	@Override
+//	public void resume(){
+//		gsm.resume();
+//	}
 }
