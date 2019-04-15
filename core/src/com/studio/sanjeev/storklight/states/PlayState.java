@@ -23,8 +23,8 @@ public class PlayState extends State {
     Array<Texture> textures = new Array<Texture>();
     private BitmapFont font;
     private Texture lifeTex, pauseTex;
-    private int score = 0;
-    private int lives = 5;
+    private static int score = 0;
+    private static int lives = 5;
     private long startTime;
     public Prefs prefs;
 
@@ -133,7 +133,7 @@ public class PlayState extends State {
         }
         else{
             sb.begin();
-            font.draw(sb," | Time: "+ getPlayTime(), 58 , 95);
+            font.draw(sb," | Time: "+ getPlayTime(), 60 , 95);
             sb.end();
         }
     }
@@ -159,7 +159,7 @@ public class PlayState extends State {
         if(temp==1){
             stork.reward();
             score +=temp;
-            if (score%20==0 && lives <=9){
+            if (score%20==0 && lives < 9){
                 lives+=1;
             }
         }
@@ -184,15 +184,15 @@ public class PlayState extends State {
     }
 
     private String getPlayTime(){
-        long hours=0, minutes=0, seconds=0, units;
+        long minutes=0, seconds=0, units;
         String timeString;
         units = (System.currentTimeMillis() - startTime)/1000 ;
 
-        hours = units / 3600;
+//        hours = units / 3600;
         minutes = (units % 3600) / 60;
         seconds = units % 60;
 
-        timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        timeString = String.format("%02d:%02d", minutes, seconds);
         return timeString;
     }
 
