@@ -27,8 +27,6 @@ public class Stork {
     private Sound orb_sound;
     private Sound dark_sound;
     private long wings_audio_id;
-    private long orb_audio_id;
-    private long dark_audio_id;
     private AssetManager assetManager;
 
     public Vector3 getPosition() {
@@ -96,11 +94,13 @@ public class Stork {
 
     public void fly(){
         velocity.y = velocity.y + STORK_SPEED;
-        wings.setPitch(wings_audio_id,1.4f);
+        if (wings != null){
+            wings.setPitch(wings_audio_id,1.4f);
+        }
     }
 
     public void descend(){
-        if (wings !=null){
+        if (wings != null){
             wings.setPitch(wings_audio_id,1.2f);
         }
     }
