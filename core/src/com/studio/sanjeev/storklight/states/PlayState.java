@@ -112,14 +112,13 @@ public class PlayState extends State {
         sb.end();
 
         sb.begin();
-        font.draw(sb,"Score: "+ getScore(), 40 , 95);
+        font.draw(sb,"Score: "+ getScore(), 30 , 95);
         sb.end();
 
         sb.begin();
-        for(int i =1; i <= lives; i++){
-            sb.draw(lifeTex, 4*i - 4 + 2 , 100 - 10,4,6);
 
-        }
+        sb.draw(lifeTex, 2 , 90,5,7);
+        font.draw(sb,"X " + lives, 8 , 95);
 
         sb.draw(pauseTex,92,90,5,5);
 
@@ -133,7 +132,7 @@ public class PlayState extends State {
         }
         else{
             sb.begin();
-            font.draw(sb," | Time: "+ getPlayTime(), 60 , 95);
+            font.draw(sb," Time : "+ getPlayTime(), 55 , 95);
             sb.end();
         }
     }
@@ -159,7 +158,7 @@ public class PlayState extends State {
         if(temp==1){
             stork.reward();
             score +=temp;
-            if (score%20==0 && lives < 9){
+            if (score%20==0){
                 lives+=1;
             }
         }
