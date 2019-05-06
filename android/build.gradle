@@ -32,7 +32,7 @@ android {
         minSdkVersion 9
         targetSdkVersion 27
         versionCode 5
-        versionName '0.0.5'
+        versionName '0.0.5.1'
         versionNameSuffix '-beta'
     }
     buildTypes {
