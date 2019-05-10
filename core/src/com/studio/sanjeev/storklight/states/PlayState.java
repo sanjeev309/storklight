@@ -57,6 +57,7 @@ public class PlayState extends State {
         }
 
         startTime = System.currentTimeMillis();
+        PAUSED = false;
     }
 
     @Override
@@ -68,16 +69,25 @@ public class PlayState extends State {
             Vector3 v = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             v = cam.unproject(v);
 
-            if (!PAUSED) {
+
+            if (PAUSED && (v.y > 42 && v.y < 56) && (v.x > 38 && v.x < 54)){
+                PAUSED = false;
+                lives = 5;
+                score = 0;
+
+                gsm.set(new MenuState(gsm, cam, viewport, stage));
+                dispose();
+            }
+
+            if (v.y > 80 && v.x > 90 && !PAUSED) {
+                PAUSED = true;
+            }
+
+            else if (!PAUSED) {
                 stork.fly();
             }
-
             else {
                 PAUSED = false;
-            }
-
-            if (v.y > 90 && v.x > 90) {
-                PAUSED = true;
             }
         }
 
@@ -92,6 +102,7 @@ public class PlayState extends State {
     @Override
     public void update(float dt) {
         handleInput();
+
         if (!PAUSED) {
             cam.update();
             stork.update(dt);
@@ -120,19 +131,21 @@ public class PlayState extends State {
         sb.draw(lifeTex, 2 , 90,5,7);
         font.draw(sb,"X " + lives, 8 , 95);
 
-        sb.draw(pauseTex,92,90,5,5);
 
         sb.end();
 
         if (PAUSED){
 
             sb.begin();
-            font.draw(sb,"Touch Anywhere to Continue", 30,50);
+            font.draw(sb,"Touch Anywhere to Continue", 20,10);
+            font.draw(sb,"E X I T ?", 45,50);
             sb.end();
         }
         else{
             sb.begin();
             font.draw(sb," Time : "+ getPlayTime(), 55 , 95);
+            sb.draw(pauseTex,92,90,5,5);
+
             sb.end();
         }
     }
