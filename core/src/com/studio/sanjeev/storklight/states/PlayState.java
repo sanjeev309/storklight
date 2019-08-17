@@ -23,8 +23,8 @@ public class PlayState extends State {
     Array<Texture> textures = new Array<Texture>();
     private BitmapFont font;
     private Texture lifeTex, pauseTex;
-    private static int score = 0;
-    private static int lives = 5;
+    private static int score;
+    private static int lives;
     private long startTime;
     public Prefs prefs;
 
@@ -33,6 +33,8 @@ public class PlayState extends State {
     public PlayState(GameStateManager gsm, OrthographicCamera cam, Viewport viewport,Stage  stage) {
         super(gsm, cam, viewport, stage);
 
+        score = 0;
+        lives = 5;
         prefs = new Prefs();
         stork = new Stork(0, 50);
         lifeTex = new Texture(Gdx.files.internal("artwork/lifes.png"));
@@ -171,8 +173,9 @@ public class PlayState extends State {
         if(temp==1){
             stork.reward();
             score +=temp;
-            if (score%20==0){
+            if (score%10==0){
                 lives+=1;
+                orbs.levelUp();
             }
         }
         else

@@ -19,10 +19,10 @@ import java.util.Random;
  */
 
 public class CollectibleOrbs {
-    private static final int ORB_COUNT = 10;
-    private static final int DARK_COUNT = 10;
-    private static final int ORB_RADIUS = 1;
-    private static final int ORB_SPEED = 14;
+    private static int ORB_COUNT = 10;
+    private static int DARK_COUNT = 1;
+    private static int ORB_RADIUS = 1;
+    private static int ORB_SPEED = 14;
     private Array<Orb> orbs;
     private Array<Dark> darks;
     private Orb orb;
@@ -43,13 +43,14 @@ public class CollectibleOrbs {
             column.add(i);
         }
 
-        for(int i = 0; i<ORB_COUNT; i++) {
+        for(int i = 0; i < ORB_COUNT; i++) {
             orb = new Orb();
             orbs.add(orb);
         }
         for(int i = 0; i<DARK_COUNT; i++) {
             dark = new Dark();
             darks.add(dark);
+
          }
     }
 
@@ -61,6 +62,11 @@ public class CollectibleOrbs {
         for(Dark dark : darks){
             dark.update(delta);
         }
+    }
+
+    public void levelUp(){
+        dark = new Dark();
+        darks.add(dark);
     }
 
     public void render(SpriteBatch sb){
