@@ -31,7 +31,7 @@ android {
         applicationId 'com.studio.sanjeev.storklight'
         minSdkVersion 9
         targetSdkVersion 29
-        versionCode 6
+        versionCode 7
         versionName '0.0.6.0'
         versionNameSuffix '-beta'
     }
