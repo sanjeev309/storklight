@@ -1,6 +1,8 @@
 package com.studio.sanjeev.storklight.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -26,7 +28,12 @@ public class PlayState extends State {
     private static int score;
     private static int lives;
     private long startTime;
+    private Music background;
+    private AssetManager assetManager;
+    private long background_audio_id;
+    private Boolean AudioStarted = false;
     public Prefs prefs;
+
 
     private static boolean PAUSED = false;
 
@@ -35,6 +42,11 @@ public class PlayState extends State {
 
         score = 0;
         lives = 5;
+
+        background = Gdx.audio.newMusic(Gdx.files.internal("audio/background.wav"));
+        background.setLooping(true);
+        background.play();
+
         prefs = new Prefs();
         stork = new Stork(0, 50);
         lifeTex = new Texture(Gdx.files.internal("artwork/lifes.png"));
@@ -163,6 +175,8 @@ public class PlayState extends State {
         orbs.dispose();
         font.dispose();
         stork.dispose();
+        background.stop();
+        background.dispose();
 
     }
 
@@ -207,9 +221,7 @@ public class PlayState extends State {
         minutes = (units % 3600) / 60;
         seconds = units % 60;
 
-        timeString = String.format("%02d:%02d", minutes, seconds);
+        timeString = String.format("%02d : %02d", minutes, seconds);
         return timeString;
     }
-
-
 }
