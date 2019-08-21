@@ -67,6 +67,7 @@ public class CollectibleOrbs {
     public void levelUp(){
         dark = new Dark();
         darks.add(dark);
+        ORB_SPEED +=2;
     }
 
     public void render(SpriteBatch sb){

@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.studio.sanjeev.storklight.utility.Prefs;
+
+import java.util.Map;
+
 /**
  * Created by sanjeev309 on 3/19/18.
  */
@@ -23,11 +27,12 @@ public class Stork {
     private Vector3 velocity;
     private Animation storkAnimation;
     private Rectangle storkRectangle;
-    private Sound wings;
-    private Sound orb_sound;
-    private Sound dark_sound;
+    private Sound wings = null;
+    private Sound orb_sound = null;
+    private Sound dark_sound = null;
     private long wings_audio_id;
     private AssetManager assetManager;
+    private Prefs prefs;
 
     public Vector3 getPosition() {
         return position;
@@ -39,11 +44,7 @@ public class Stork {
 
     public Stork(int x, int y) {
 
-        assetManager = new AssetManager();
-        assetManager.load("audio/wings.wav", Sound.class);
-        assetManager.load("audio/orb.wav",Sound.class);
-        assetManager.load("audio/dark.wav",Sound.class);
-        assetManager.finishLoading();
+        prefs = new Prefs();
 
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
@@ -51,18 +52,26 @@ public class Stork {
         storkAnimation = new Animation(texture, 6, 0.3f);
         storkRectangle = new Rectangle(x, y, WIDTH, HEIGHT);
 
-        if (assetManager.isLoaded("audio/orb.wav")) {
-            orb_sound = assetManager.get("audio/orb.wav", Sound.class);
-        }
+        if (prefs.getSound()) {
+            assetManager = new AssetManager();
+            assetManager.load("audio/wings.wav", Sound.class);
+            assetManager.load("audio/orb.wav", Sound.class);
+            assetManager.load("audio/dark.wav", Sound.class);
+            assetManager.finishLoading();
 
-        if (assetManager.isLoaded("audio/dark.wav")) {
-            dark_sound = assetManager.get("audio/dark.wav", Sound.class);
+            if (assetManager.isLoaded("audio/orb.wav")) {
+                orb_sound = assetManager.get("audio/orb.wav", Sound.class);
+            }
+
+            if (assetManager.isLoaded("audio/dark.wav")) {
+                dark_sound = assetManager.get("audio/dark.wav", Sound.class);
+            }
         }
     }
 
     public void update(float dt){
 
-        if (assetManager.isLoaded("audio/wings.wav") && ! AudioStarted) {
+        if (prefs.getSound() && assetManager.isLoaded("audio/wings.wav") && ! AudioStarted) {
 
             wings = assetManager.get("audio/wings.wav", Sound.class);
             wings_audio_id = wings.loop(1.0f);
@@ -111,24 +120,26 @@ public class Stork {
 
 
     public void reward(){
-        if (assetManager.isLoaded("audio/orb.wav")){
+        if (prefs.getSound() && assetManager.isLoaded("audio/orb.wav")){
             orb_sound.play(0.2f,0.8f,-0.4f);
         }
     }
 
     public void punish(){
-        if (assetManager.isLoaded("audio/dark.wav")){
+        if (prefs.getSound() && assetManager.isLoaded("audio/dark.wav")){
             dark_sound.play(0.2f,1.0f,-0.4f);
         }
     }
-    public void dispose(){
-        wings.stop();
-        wings.dispose();
-        orb_sound.stop();
-        orb_sound.dispose();
-        dark_sound.stop();
-        dark_sound.dispose();
-    }
 
+    public void dispose(){
+        if(prefs.getSound()) {
+            wings.stop();
+            wings.dispose();
+            orb_sound.stop();
+            orb_sound.dispose();
+            dark_sound.stop();
+            dark_sound.dispose();
+        }
+    }
 }
 

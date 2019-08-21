@@ -18,6 +18,7 @@ import com.studio.sanjeev.storklight.utility.Prefs;
 public class MenuState extends State {
     private Texture background;
     private Texture playStork;
+    private Texture stop;
     private BitmapFont font;
     private Prefs prefs;
 
@@ -34,6 +35,7 @@ public class MenuState extends State {
 //        font.getData().setColor(1.0f,1.0f,1.0f,0.0f);
         background = new Texture("artwork/main_landing_screen.png");
         playStork = new Texture("artwork/storkmenu.png");
+        stop = new Texture("artwork/stop.png");
 
     }
 
@@ -71,7 +73,7 @@ public class MenuState extends State {
                 }
 
                 else if(v.x > 65 && v.x < 70 ){
-
+                    prefs.setSound(!prefs.getSound());
                 }
 
                 else if(v.x > 80 && v.x < 90 ){
@@ -93,6 +95,9 @@ public class MenuState extends State {
         sb.begin();
         sb.draw(background,0,0, 100,100);
         sb.draw(playStork,10 ,20 ,80,80);
+        if( !prefs.getSound()){
+         sb.draw(stop,63,4, 12,17);
+        }
         font.draw(sb,"Press Play to Start", 30,30);
         sb.end();
 

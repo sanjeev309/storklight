@@ -43,11 +43,14 @@ public class PlayState extends State {
         score = 0;
         lives = 5;
 
-        background = Gdx.audio.newMusic(Gdx.files.internal("audio/background.wav"));
-        background.setLooping(true);
-        background.play();
-
         prefs = new Prefs();
+
+        if(prefs.getSound()) {
+            background = Gdx.audio.newMusic(Gdx.files.internal("audio/background.wav"));
+            background.setLooping(true);
+            background.play();
+        }
+
         stork = new Stork(0, 50);
         lifeTex = new Texture(Gdx.files.internal("artwork/lifes.png"));
         pauseTex = new Texture(Gdx.files.internal("artwork/pause.png"));
@@ -175,8 +178,11 @@ public class PlayState extends State {
         orbs.dispose();
         font.dispose();
         stork.dispose();
-        background.stop();
-        background.dispose();
+
+        if(prefs.getSound()) {
+            background.stop();
+            background.dispose();
+        }
 
     }
 
