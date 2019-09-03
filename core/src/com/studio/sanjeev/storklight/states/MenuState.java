@@ -32,6 +32,8 @@ public class MenuState extends State {
         prefs = new Prefs();
         font = new BitmapFont(Gdx.files.internal("fonts/abel.fnt"), Gdx.files.internal("fonts/abel.png"), false);
         font.getData().setScale(0.15f);
+        font.setUseIntegerPositions(false);
+
 //        font.getData().setColor(1.0f,1.0f,1.0f,0.0f);
         background = new Texture("artwork/main_landing_screen.png");
         playStork = new Texture("artwork/storkmenu.png");
@@ -41,13 +43,13 @@ public class MenuState extends State {
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void dispose() {
         background.dispose();
         playStork.dispose();
+        font.dispose();
     }
 
 
@@ -77,7 +79,8 @@ public class MenuState extends State {
                 }
 
                 else if(v.x > 80 && v.x < 90 ){
-
+                    gsm.set(new InfoState(gsm, cam, viewport, stage));
+                    dispose();
                 }
             }
         }
