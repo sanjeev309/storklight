@@ -56,6 +56,7 @@ public class PlayState extends State {
         pauseTex = new Texture(Gdx.files.internal("artwork/pause.png"));
         orbs = new CollectibleOrbs(cam);
         font = new BitmapFont(Gdx.files.internal("fonts/abel.fnt"), Gdx.files.internal("fonts/abel.png"), false);
+        font.setUseIntegerPositions(false);
         font.getData().setScale(0.15f);
         textures.add(new Texture("artwork/night_bg.png"));
         textures.get(textures.size - 1).setWrap(Texture.TextureWrap.ClampToEdge, Texture.TextureWrap.ClampToEdge);
@@ -155,7 +156,7 @@ public class PlayState extends State {
 
             sb.begin();
             font.draw(sb,"Touch Anywhere to Continue", 20,10);
-            font.draw(sb,"E X I T ?", 45,50);
+            font.draw(sb,"EXIT?", 45,50);
             sb.end();
         }
         else{
