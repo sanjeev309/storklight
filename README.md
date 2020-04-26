@@ -47,6 +47,7 @@ For details of classes, directory structure and guidelines: [wiki](https://githu
 
 Please read [CONTRIBUTING.md](https://github.com/sanjeev309/storklight/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
+Contribute to Artwork by submitting PR for the art located at [Artwork Location](https://github.com/sanjeev309/storklight/tree/master/android/assets/artwork)
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/sanjeev309/storklight/tags).
